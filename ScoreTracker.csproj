@@ -70,16 +70,10 @@
 	  <Compile Update="EditPlayerPage.xaml.cs">
 	    <DependentUpon>EditPlayerPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="PlayerView.xaml.cs">
-	    <DependentUpon>PlayerView.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="EditPlayerPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="PlayerView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
