@@ -31,7 +31,8 @@
         <ListView
             x:Name="PlayerListView"
             ItemTapped="PlayerListView_ItemTapped"
-            SelectionMode="None">
+            SelectionMode="None"
+            CachingStrategy="RecycleElement">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -60,5 +61,4 @@
             </ListView.ItemTemplate>
         </ListView>
     </toolkit:DockLayout>
-
 </ContentPage>
