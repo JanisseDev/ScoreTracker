@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ScoreTracker.EditPlayerPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="EditPlayerPage">
     <ScrollView>
 
@@ -20,7 +21,11 @@
                     HorizontalTextAlignment="Center"
                     VerticalOptions="Center" 
                     HorizontalOptions="Fill"
-                    Focused="OnNameEntryFocused"/>
+                    Completed="NameInput_Completed">
+                    <Entry.Behaviors>
+                        <toolkit:SelectAllTextBehavior />
+                    </Entry.Behaviors>
+                </Entry>
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
                     Spacing="5">
@@ -73,7 +78,7 @@
                 <Button
                     x:Name="ValidateBtn"
                     Text="Save" 
-                    Clicked="OnSaveClicked"
+                    Clicked="OnSavePointsClicked"
                     HorizontalOptions="Fill"/>
             </VerticalStackLayout>
 

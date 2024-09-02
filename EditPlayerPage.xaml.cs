@@ -52,11 +52,10 @@ public partial class EditPlayerPage : ContentPage
         CounterLabel.Text = (count > 0 ? "+" : "") + count.ToString();
     }
 
-    private void OnSaveClicked(object sender, EventArgs e)
+    private void OnSavePointsClicked(object sender, EventArgs e)
     {
         if (playerData != null)
         {
-            playerData.Name = NameInput.Text;
             playerData.Points.Add(count);
             DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
         }
@@ -81,12 +80,9 @@ public partial class EditPlayerPage : ContentPage
         });
     }
 
-    private void OnNameEntryFocused(object sender, FocusEventArgs e)
+    private void NameInput_Completed(object sender, EventArgs e)
     {
-        Dispatcher.Dispatch(() =>
-        {
-            NameInput.CursorPosition = 0;
-            NameInput.SelectionLength = NameInput.Text != null ? NameInput.Text.Length : 0;
-        });
+        playerData.Name = NameInput.Text;
+        DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
     }
 }
