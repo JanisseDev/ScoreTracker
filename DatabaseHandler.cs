@@ -9,6 +9,8 @@ namespace ScoreTracker
         public int Id { get; set; }
         public string Name { get; set; }
         public List<int> Points { get; set; } = new List<int>();
+
+        public int TotalPoints { get { return Points.Sum(); } }
     }
 
     class DatabaseHandler

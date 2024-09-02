@@ -12,7 +12,6 @@ namespace ScoreTracker
 
             subscription?.Dispose();
             subscription = DatabaseHandler.Instance.RealtimeCollection<PlayerData>().Subscribe(_ => UpdatePlayersList());
-            //DatabaseHandler.Instance.GetCollection<PlayerData>().DeleteAll();
         }
 
         ~MainPage()
@@ -24,28 +23,8 @@ namespace ScoreTracker
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                var players = DatabaseHandler.Instance.GetCollection<PlayerData>().FindAll().ToList();
-
-                int delta = PlayersLayout.Count - players.Count();
-                if(delta < 0)
-                {
-                    for(int i = delta; i < 0; i++)
-                    {
-                        PlayersLayout.Add(new PlayerView());
-                    }
-                } 
-                else if(delta > 0)
-                {
-                    for (int i = 0; i < delta; i++)
-                    {
-                        PlayersLayout.RemoveAt(0);
-                    }
-                }
-
-                for (int i = 0;i < players.Count;i++)
-                {
-                    ((PlayerView)PlayersLayout[i]).SetPlayerId(players[i].Id);
-                }
+                var players = DatabaseHandler.Instance.GetCollection<PlayerData>().FindAll();
+                PlayerListView.ItemsSource = players;
             });
         }
 
@@ -93,6 +72,12 @@ namespace ScoreTracker
                     DatabaseHandler.Instance.GetCollection<PlayerData>().UpdateMany("{Points: []}", "Points != []");
                 }
             });
+        }
+
+        private void PlayerListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            PlayerData player = (PlayerData)e.Item;
+            Navigation.PushModalAsync(new EditPlayerPage(player.Id));
         }
     }
 }

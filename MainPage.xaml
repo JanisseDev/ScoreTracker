@@ -27,16 +27,38 @@
                 FlexLayout.Grow="1"
                 Margin="2"/>
         </FlexLayout>
-        
-        <ScrollView>
-            <VerticalStackLayout
-                x:Name="PlayersLayout"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Margin="10"
-                Spacing="17.5">
-            </VerticalStackLayout>
-        </ScrollView>
+
+        <ListView
+            x:Name="PlayerListView"
+            ItemTapped="PlayerListView_ItemTapped"
+            SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <FlexLayout
+                            HorizontalOptions="Fill"
+                            AlignContent="Stretch"
+                            FlexLayout.Grow="1"
+                            FlexLayout.Basis="50%"
+                            Margin="20, 0, 20, 0">
+                            <Label
+                                FlexLayout.Grow="1"
+                                x:Name="NameLabel"
+                                Text="{Binding Name}"
+                                FontSize="Title"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center" />
+                            <Label
+                                x:Name="ScoreLabel"
+                                Text="{Binding TotalPoints}"
+                                FontSize="Large"
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Center" />
+                        </FlexLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </toolkit:DockLayout>
 
 </ContentPage>
