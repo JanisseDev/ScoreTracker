@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ScoreTracker"
+             x:Class="ScoreTracker.MainPage"
+             NavigationPage.HasNavigationBar = "False">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="75"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollView
+            HorizontalOptions="Fill">
+
+            <VerticalStackLayout
+                x:Name="PlayersLayout"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                Margin="10"
+                Spacing="17.5">
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <FlexLayout
+            Grid.Row="1"
+            Direction="Row"
+            Margin="10">
+            <Button
+                Text="Player count"
+                Clicked="OnPlayerCountClicked"
+                HorizontalOptions="Fill" 
+                FlexLayout.Grow="1"
+                Margin="2"/>
+            <Button
+                Text="Reset scores"
+                Clicked="OnResetScoresClicked"
+                HorizontalOptions="Fill" 
+                FlexLayout.Grow="1"
+                Margin="2"/>
+        </FlexLayout>
+
+    </Grid>
+
+</ContentPage>
