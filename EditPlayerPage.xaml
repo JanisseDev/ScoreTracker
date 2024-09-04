@@ -99,8 +99,11 @@
                 <DataTemplate>
                     <ViewCell>
                         <Label
-                            FontSize="Medium"
-                            Text="{Binding}"/>
+                            Text="{Binding}"
+                            FontSize="Large"
+                            Margin="20, 0, 20, 0"
+                            VerticalOptions="Center" 
+                            HorizontalOptions="Center" />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
