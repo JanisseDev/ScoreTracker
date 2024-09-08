@@ -79,7 +79,7 @@ namespace ScoreTracker
 
         private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
         {
-            _ = Navigation.PushModalAsync(new EditPlayerPage((int)e.Parameter));
+            _ = Navigation.PushAsync(new EditPlayerPage((int)e.Parameter));
         }
     }
 }

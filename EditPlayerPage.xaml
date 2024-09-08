@@ -3,7 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ScoreTracker.EditPlayerPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="EditPlayerPage">
+             Title="Player">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Secondary" Text="Edit player name" Clicked="OnEditPlayerNameClicked" />
+        <ToolbarItem Order="Secondary" Text="Delete player" Clicked="OnDeletePlayerClicked" />
+    </ContentPage.ToolbarItems>
+
     <toolkit:DockLayout
         VerticalOptions="Fill">
         <FlexLayout
@@ -14,28 +20,6 @@
             <VerticalStackLayout
                 Margin="10"
                 Spacing="10">
-                <Entry
-                    x:Name="NameInput"
-                    Text="Player"
-                    Placeholder="Player name"
-                    FontSize="Title"
-                    HorizontalTextAlignment="Center"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Fill"
-                    Completed="NameInput_Completed">
-                    <Entry.Behaviors>
-                        <toolkit:SelectAllTextBehavior />
-                    </Entry.Behaviors>
-                </Entry>
-                <Label
-                    x:Name="CurrentScoreLabel"
-                    Text="0"
-                    FontSize="Medium"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center" 
-                    Margin="5"
-                    MinimumWidthRequest="75"
-                    HorizontalTextAlignment="Center"/>
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
                     Spacing="5">
@@ -88,13 +72,30 @@
                             HorizontalOptions="Fill"/>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
-                <Button
-                    x:Name="ValidateBtn"
-                    Text="Save"
-                    Clicked="OnSavePointsClicked"
-                    HorizontalOptions="Fill"/>
+                <VerticalStackLayout
+                    HorizontalOptions="Center"
+                    Spacing="0">
+                    <Label
+                        x:Name="CurrentScoreLabel"
+                        Text="0"
+                        FontSize="Small"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" 
+                        Margin="5"
+                        MinimumWidthRequest="75"
+                        HorizontalTextAlignment="Center"/>
+                    <Button
+                        x:Name="ValidateBtn"
+                        Text="Apply new score"
+                        Clicked="OnSavePointsClicked"
+                        HorizontalOptions="Fill"/>
+                </VerticalStackLayout>
+                <BoxView 
+                    HorizontalOptions="Fill"
+                    BackgroundColor="{StaticResource PrimaryDarkText}"
+                    HeightRequest="2"
+                    Margin="0, 40, 0, 20"/>
                 <Label
-                    Margin="0, 10"
                     Text="History"
                     HorizontalTextAlignment="Center"
                     FontSize="Title"/>
@@ -112,7 +113,7 @@
                     <ViewCell>
                         <Label
                             Text="{Binding}"
-                            FontSize="Large"
+                            FontSize="Medium"
                             Margin="20, 0, 20, 0"
                             VerticalOptions="Center" 
                             HorizontalOptions="Center" />
@@ -120,5 +121,16 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackLayout
+            x:Name="EmptyView"
+            HorizontalOptions="Fill"
+            VerticalOptions="Start">
+            <Label
+                Text="No player history yet."
+                FontAttributes="Bold"
+                FontSize="Small"
+                HorizontalOptions="Fill"
+                HorizontalTextAlignment="Center" />
+        </StackLayout>
     </toolkit:DockLayout>
 </ContentPage>

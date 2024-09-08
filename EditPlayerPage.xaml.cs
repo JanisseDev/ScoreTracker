@@ -29,16 +29,18 @@ public partial class EditPlayerPage : ContentPage
         MainThread.BeginInvokeOnMainThread(() =>
         {
             playerData = a_playerData;
-            HistoryListView.ItemsSource = playerData.Points;
 
             if (playerData != null)
             {
-                NameInput.Text = playerData.Name;
+                Title = playerData.Name;
                 UpdateCounterUI(counter.Value);
+                HistoryListView.ItemsSource = playerData.Points;
+                HistoryListView.IsVisible = playerData.Points.Count() > 0;
+                EmptyView.IsVisible = playerData.Points.Count() == 0;
             }
             else
             {
-                Navigation.PopModalAsync();
+                Navigation.PopAsync();
             }
         });
     }
@@ -47,7 +49,7 @@ public partial class EditPlayerPage : ContentPage
     {
         CounterLabel.Text = (value > 0 ? "+" : "") + value.ToString();
         int playerPoints = playerData?.TotalPoints ?? 0;
-        CurrentScoreLabel.Text = $"Score: {playerPoints} -> ({playerPoints + value})";
+        CurrentScoreLabel.Text = $"Current score: {playerPoints}\nNew Score: {playerPoints + value}";
     }
 
     private void OnCounterDecrement3(object sender, EventArgs e) { IncrementCounter(-100); }
@@ -71,12 +73,7 @@ public partial class EditPlayerPage : ContentPage
             DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
         }
 
-        Navigation.PopModalAsync();
-    }
-
-    private void OnCancelClicked(object sender, EventArgs e)
-    {
-        Navigation.PopModalAsync();
+        Navigation.PopAsync();
     }
 
     private void HistoryListView_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -91,9 +88,26 @@ public partial class EditPlayerPage : ContentPage
         });
     }
 
-    private void NameInput_Completed(object sender, EventArgs e)
+    private async void OnEditPlayerNameClicked(object sender, EventArgs e)
     {
-        playerData.Name = NameInput.Text;
+        string result = await DisplayPromptAsync("Edit player name",
+                                                        "Enter a new name for this player",
+                                                        initialValue: playerData.Name,
+                                                        keyboard: Keyboard.Text);
+
+        playerData.Name = result;
         DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
+    }
+
+    private void OnDeletePlayerClicked(object sender, EventArgs e)
+    {
+        DisplayActionSheet("Do you really to delete this player?", "No", "Yes").ContinueWith(t =>
+        {
+            if (t.Result == "Yes")
+            {
+                DatabaseHandler.Instance.GetCollection<PlayerData>().Delete(playerData.Id);
+            }
+        });
+        
     }
 }
