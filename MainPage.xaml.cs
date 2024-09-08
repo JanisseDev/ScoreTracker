@@ -10,6 +10,7 @@ namespace ScoreTracker
         {
             InitializeComponent();
 
+            PlayerListView.IsVisible = false;
             subscription?.Dispose();
             subscription = DatabaseHandler.Instance.RealtimeCollection<PlayerData>().Subscribe(_ => UpdatePlayersList());
         }
@@ -25,6 +26,8 @@ namespace ScoreTracker
             {
                 var players = DatabaseHandler.Instance.GetCollection<PlayerData>().FindAll();
                 PlayerListView.ItemsSource = players;
+                PlayerListView.IsVisible = players.Count() > 0;
+                EmptyView.IsVisible = players.Count() == 0;
             });
         }
 
@@ -74,10 +77,9 @@ namespace ScoreTracker
             });
         }
 
-        private void PlayerListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
         {
-            PlayerData player = (PlayerData)e.Item;
-            Navigation.PushModalAsync(new EditPlayerPage(player.Id));
+            _ = Navigation.PushModalAsync(new EditPlayerPage((int)e.Parameter));
         }
     }
 }
