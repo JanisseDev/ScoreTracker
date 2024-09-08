@@ -1,24 +1,27 @@
-using Microsoft.Maui.Controls;
-using System.Xml;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace ScoreTracker;
 
 public partial class EditPlayerPage : ContentPage
 {
-    private int count = 0;
+    private BehaviorSubject<int> counter = new BehaviorSubject<int>(0);
     private PlayerData playerData;
-    private IDisposable subscription;
+    private CompositeDisposable subscriptions;
 
     public EditPlayerPage(int a_id)
 	{
 		InitializeComponent();
-        subscription?.Dispose();
-        subscription = DatabaseHandler.Instance.RealtimeCollection<PlayerData>().Id(a_id).Subscribe(x => { SetPlayerData(x); });
+        subscriptions?.Dispose();
+        subscriptions = new CompositeDisposable();
+        subscriptions.Add(DatabaseHandler.Instance.RealtimeCollection<PlayerData>().Id(a_id).Subscribe(x => { SetPlayerData(x); }));
+        subscriptions.Add(counter.Subscribe(x => { UpdateCounterUI(x); }));
     }
 
     ~EditPlayerPage()
     {
-        subscription?.Dispose();
+        subscriptions?.Dispose();
     }
 
     private void SetPlayerData(PlayerData a_playerData)
@@ -31,12 +34,20 @@ public partial class EditPlayerPage : ContentPage
             if (playerData != null)
             {
                 NameInput.Text = playerData.Name;
+                UpdateCounterUI(counter.Value);
             }
             else
             {
                 Navigation.PopModalAsync();
             }
         });
+    }
+
+    private void UpdateCounterUI(int value)
+    {
+        CounterLabel.Text = (value > 0 ? "+" : "") + value.ToString();
+        int playerPoints = playerData?.TotalPoints ?? 0;
+        CurrentScoreLabel.Text = $"Score: {playerPoints} -> ({playerPoints + value})";
     }
 
     private void OnCounterDecrement3(object sender, EventArgs e) { IncrementCounter(-100); }
@@ -48,15 +59,15 @@ public partial class EditPlayerPage : ContentPage
 
     private void IncrementCounter(int value)
     {
-        count += value;
-        CounterLabel.Text = (count > 0 ? "+" : "") + count.ToString();
+        counter.OnNext(counter.Value + value);
     }
 
     private void OnSavePointsClicked(object sender, EventArgs e)
     {
         if (playerData != null)
         {
-            playerData.Points.Add(count);
+            playerData.Points.Add(counter.Value);
+            counter.OnNext(0);
             DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
         }
 

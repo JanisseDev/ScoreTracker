@@ -13,7 +13,7 @@
             Direction="Column">
             <VerticalStackLayout
                 Margin="10"
-                Spacing="40">
+                Spacing="10">
                 <Entry
                     x:Name="NameInput"
                     Text="Player"
@@ -27,6 +27,15 @@
                         <toolkit:SelectAllTextBehavior />
                     </Entry.Behaviors>
                 </Entry>
+                <Label
+                    x:Name="CurrentScoreLabel"
+                    Text="0"
+                    FontSize="Medium"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" 
+                    Margin="5"
+                    MinimumWidthRequest="75"
+                    HorizontalTextAlignment="Center"/>
                 <HorizontalStackLayout
                     HorizontalOptions="Center"
                     Spacing="5">
@@ -48,15 +57,18 @@
                             Clicked="OnCounterDecrement1"
                             HorizontalOptions="Fill"/>
                     </VerticalStackLayout>
-                    <Label
-                        x:Name="CounterLabel"
-                        Text="0"
-                        FontSize="Large"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Center" 
-                        Margin="5"
-                        MinimumWidthRequest="75"
-                        HorizontalTextAlignment="Center"/>
+                    <VerticalStackLayout
+                        VerticalOptions="Center">
+                        <Label
+                            x:Name="CounterLabel"
+                            Text="0"
+                            FontSize="Large"
+                            VerticalOptions="Center" 
+                            HorizontalOptions="Center" 
+                            Margin="5"
+                            MinimumWidthRequest="75"
+                            HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
                     <VerticalStackLayout
                         Spacing="5">
                         <Button
