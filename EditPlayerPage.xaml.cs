@@ -95,8 +95,11 @@ public partial class EditPlayerPage : ContentPage
                                                         initialValue: playerData.Name,
                                                         keyboard: Keyboard.Text);
 
-        playerData.Name = result;
-        DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
+        if(result != null)
+        {
+            playerData.Name = result;
+            DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
+        }
     }
 
     private void OnDeletePlayerClicked(object sender, EventArgs e)

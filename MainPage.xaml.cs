@@ -35,7 +35,6 @@ namespace ScoreTracker
         {
             string result = await DisplayPromptAsync("Player count",
                                                         "How many players do you want?",
-                                                        initialValue: DatabaseHandler.Instance.GetCollection<PlayerData>().Count().ToString(),
                                                         maxLength: 2,
                                                         keyboard: Keyboard.Numeric);
             int desiredPlayerCount;
