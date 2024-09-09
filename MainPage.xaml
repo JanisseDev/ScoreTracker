@@ -7,8 +7,8 @@
              x:Class="ScoreTracker.MainPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Secondary" Text="Edit player count" Clicked="OnPlayerCountClicked" />
-        <ToolbarItem Order="Secondary" Text="Reset scores" Clicked="OnResetScoresClicked" />
+        <ToolbarItem IconImageSource="{StaticResource EditPlayerCountIcon}" Text="Edit player count" Clicked="OnPlayerCountClicked" />
+        <ToolbarItem IconImageSource="{StaticResource ResetScoreIcon}" Text="Reset scores" Clicked="OnResetScoresClicked" />
     </ContentPage.ToolbarItems>
 
     <FlexLayout

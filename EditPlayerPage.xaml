@@ -6,8 +6,8 @@
              Title="Player">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Secondary" Text="Edit player name" Clicked="OnEditPlayerNameClicked" />
-        <ToolbarItem Order="Secondary" Text="Delete player" Clicked="OnDeletePlayerClicked" />
+        <ToolbarItem IconImageSource="{StaticResource EditNameIcon}" Text="Edit player name" Clicked="OnEditPlayerNameClicked" />
+        <ToolbarItem IconImageSource="{StaticResource DeleteIcon}" Text="Delete player" Clicked="OnDeletePlayerClicked" />
     </ContentPage.ToolbarItems>
 
     <toolkit:DockLayout

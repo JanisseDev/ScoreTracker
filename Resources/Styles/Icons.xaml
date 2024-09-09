@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Icons from https://www.svgrepo.com/collection/dazzle-line-icons -->
+    <x:String x:Key="EditPlayerCountIcon">users</x:String>
+    <x:String x:Key="ResetScoreIcon">clipboard_xmark</x:String>
+    <x:String x:Key="DeleteIcon">trash_alt</x:String>
+    <x:String x:Key="EditNameIcon">pen_line</x:String>
+    
+</ResourceDictionary>

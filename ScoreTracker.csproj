@@ -57,6 +57,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\clipboard_xmark.svg" />
+	  <None Remove="Resources\Images\pen_line.svg" />
+	  <None Remove="Resources\Images\trash_alt.svg" />
+	  <None Remove="Resources\Images\users.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
 		<PackageReference Include="LiteDB" Version="5.0.21" />
 		<PackageReference Include="LiteDB.Realtime" Version="1.1.1" />
@@ -74,6 +81,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="EditPlayerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\Icons.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
