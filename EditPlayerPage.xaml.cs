@@ -95,7 +95,7 @@ public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
         string result = await DisplayPromptAsync("Edit player name",
                                                         "Enter a new name for this player",
                                                         initialValue: playerData.Name,
-                                                        keyboard: Keyboard.Text);
+                                                        keyboard: Microsoft.Maui.Keyboard.Text);
 
         if(result != null)
         {
