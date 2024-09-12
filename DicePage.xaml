@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ScoreTracker"
+             x:Class="ScoreTracker.DicePage"
+             Title="DicePage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Button" x:Key="DiceButton">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Padding" Value="30" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Command" Value="{Binding RollDiceCommand}" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <VerticalStackLayout
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+            <Label
+                x:Name="DiceHeaderLabel"
+                Text="Roll a dice"
+                FontSize="Small"/>
+            <Label
+                x:Name="DiceResultLabel"
+                Text=""
+                IsVisible="False"
+                FontSize="100"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="Fill" 
+                HorizontalOptions="Fill"
+                Grid.Row="0"/>
+        </VerticalStackLayout>
+        <FlexLayout
+            Direction="Row"
+            Wrap="Wrap"
+            JustifyContent="Center"
+            VerticalOptions="Fill"
+            HorizontalOptions="Fill"
+            Grid.Row="1">
+            <Button Style="{StaticResource DiceButton}" Text="D4" CommandParameter="4" />
+            <Button Style="{StaticResource DiceButton}" Text="D6" CommandParameter="6" />
+            <Button Style="{StaticResource DiceButton}" Text="D8" CommandParameter="8" />
+            <Button Style="{StaticResource DiceButton}" Text="D10" CommandParameter="10" />
+            <Button Style="{StaticResource DiceButton}" Text="D12" CommandParameter="12" />
+            <Button Style="{StaticResource DiceButton}" Text="D20" CommandParameter="20" />
+            <Button Style="{StaticResource DiceButton}" Text="D100" CommandParameter="100" />
+        </FlexLayout>
+    </Grid>
+</ContentPage>

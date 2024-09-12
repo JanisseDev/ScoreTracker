@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- Icons from https://www.svgrepo.com/collection/dazzle-line-icons -->
+    <x:String x:Key="ScoreTabIcon">clipboard_list_alt</x:String>
+    <x:String x:Key="DiceTabIcon">dice_three</x:String>
     <x:String x:Key="EditPlayerCountIcon">users</x:String>
     <x:String x:Key="ResetScoreIcon">clipboard_xmark</x:String>
     <x:String x:Key="DeleteIcon">trash_alt</x:String>

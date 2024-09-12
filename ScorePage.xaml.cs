@@ -2,11 +2,11 @@
 
 namespace ScoreTracker
 {
-    public partial class MainPage : ContentPage
+    public partial class ScorePage : ContentPage
     {
         IDisposable subscription;
 
-        public MainPage()
+        public ScorePage()
         {
             InitializeComponent();
 
@@ -15,7 +15,7 @@ namespace ScoreTracker
             subscription = DatabaseHandler.Instance.RealtimeCollection<PlayerData>().Subscribe(_ => UpdatePlayersList());
         }
 
-        ~MainPage()
+        ~ScorePage()
         {
             subscription?.Dispose();
         }

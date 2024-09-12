@@ -56,7 +56,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\clipboard_list_alt.svg" />
 	  <None Remove="Resources\Images\clipboard_xmark.svg" />
+	  <None Remove="Resources\Images\dice_three.svg" />
 	  <None Remove="Resources\Images\pen_line.svg" />
 	  <None Remove="Resources\Images\trash_alt.svg" />
 	  <None Remove="Resources\Images\users.svg" />
@@ -76,13 +78,22 @@
 	  <Compile Update="EditPlayerPage.xaml.cs">
 	    <DependentUpon>EditPlayerPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="ScorePage.xaml.cs">
+	    <DependentUpon>ScorePage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="DicePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="EditPlayerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\Icons.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="RootPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

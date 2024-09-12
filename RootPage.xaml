@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:ScoreTracker"
+            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            x:Class="ScoreTracker.RootPage"
+            Title="RootPage"
+            android:TabbedPage.ToolbarPlacement="Bottom">
+    <NavigationPage Title="Score" IconImageSource="{StaticResource ScoreTabIcon}">
+        <x:Arguments>
+            <local:ScorePage />
+        </x:Arguments>
+    </NavigationPage>
+    <local:DicePage Title="Dice" IconImageSource="{StaticResource DiceTabIcon}" />
+</TabbedPage>
