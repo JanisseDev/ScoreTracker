@@ -5,6 +5,13 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Player">
 
+    <ContentPage.Resources>
+        <Style TargetType="Button" x:Key="EditCounterButton">
+            <Setter Property="HorizontalOptions" Value="Fill" />
+            <Setter Property="Command" Value="{Binding EditCounterCommand}" />
+        </Style>
+    </ContentPage.Resources>
+
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="{StaticResource EditNameIcon}" Text="Edit player name" Clicked="OnEditPlayerNameClicked" />
         <ToolbarItem IconImageSource="{StaticResource DeleteIcon}" Text="Delete player" Clicked="OnDeletePlayerClicked" />
@@ -25,21 +32,9 @@
                     Spacing="5">
                     <VerticalStackLayout
                         Spacing="5">
-                        <Button
-                            x:Name="DecrBtn3"
-                            Text="-100" 
-                            Clicked="OnCounterDecrement3"
-                            HorizontalOptions="Fill"/>
-                        <Button
-                            x:Name="DecrBtn2"
-                            Text="-10" 
-                            Clicked="OnCounterDecrement2"
-                            HorizontalOptions="Fill"/>
-                        <Button
-                            x:Name="DecrBtn1"
-                            Text="-1" 
-                            Clicked="OnCounterDecrement1"
-                            HorizontalOptions="Fill"/>
+                        <Button Style="{StaticResource EditCounterButton}" Text="-100" CommandParameter="-100"/>
+                        <Button Style="{StaticResource EditCounterButton}" Text="-10" CommandParameter="-10"/>
+                        <Button Style="{StaticResource EditCounterButton}" Text="-1" CommandParameter="-1"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout
                         VerticalOptions="Center">
@@ -55,21 +50,9 @@
                     </VerticalStackLayout>
                     <VerticalStackLayout
                         Spacing="5">
-                        <Button
-                            x:Name="IncrBtn3"
-                            Text="+100" 
-                            Clicked="OnCounterIncrement3"
-                            HorizontalOptions="Fill"/>
-                        <Button
-                            x:Name="IncrBtn2"
-                            Text="+10" 
-                            Clicked="OnCounterIncrement2"
-                            HorizontalOptions="Fill"/>
-                        <Button
-                            x:Name="IncrBtn1"
-                            Text="+1" 
-                            Clicked="OnCounterIncrement1"
-                            HorizontalOptions="Fill"/>
+                        <Button Style="{StaticResource EditCounterButton}" Text="+100" CommandParameter="100"/>
+                        <Button Style="{StaticResource EditCounterButton}" Text="+10" CommandParameter="10"/>
+                        <Button Style="{StaticResource EditCounterButton}" Text="+1" CommandParameter="1"/>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
                 <VerticalStackLayout

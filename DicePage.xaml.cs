@@ -13,9 +13,9 @@ public partial class DicePage : ContentPage, INotifyPropertyChanged
 
         RollDiceCommand = new Command<string>(x =>
         {
-            int param = int.Parse(x);
-            int result = Random.Shared.Next(param) + 1;
-            DiceHeaderLabel.Text = $"The result of your D{param} is:";
+            int value = int.Parse(x);
+            int result = Random.Shared.Next(value) + 1;
+            DiceHeaderLabel.Text = $"The result of your D{value} is:";
             DiceResultLabel.Text = result.ToString();
             DiceResultLabel.IsVisible = true;
             Vibration.Default.Vibrate(50);

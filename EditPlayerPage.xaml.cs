@@ -1,11 +1,15 @@
+using System.ComponentModel;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows.Input;
 
 namespace ScoreTracker;
 
-public partial class EditPlayerPage : ContentPage
+public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
 {
+    public ICommand EditCounterCommand { get; private set; }
+
     private BehaviorSubject<int> counter = new BehaviorSubject<int>(0);
     private PlayerData playerData;
     private CompositeDisposable subscriptions;
@@ -17,6 +21,15 @@ public partial class EditPlayerPage : ContentPage
         subscriptions = new CompositeDisposable();
         subscriptions.Add(DatabaseHandler.Instance.RealtimeCollection<PlayerData>().Id(a_id).Subscribe(x => { SetPlayerData(x); }));
         subscriptions.Add(counter.Subscribe(x => { UpdateCounterUI(x); }));
+
+        EditCounterCommand = new Command<string>(x =>
+        {
+            int value = int.Parse(x);
+            counter.OnNext(counter.Value + value);
+            Vibration.Default.Vibrate(50);
+        });
+
+        BindingContext = this;
     }
 
     ~EditPlayerPage()
@@ -52,18 +65,6 @@ public partial class EditPlayerPage : ContentPage
         CurrentScoreLabel.Text = $"Current score: {playerPoints}\nNew Score: {playerPoints + value}";
     }
 
-    private void OnCounterDecrement3(object sender, EventArgs e) { IncrementCounter(-100); }
-    private void OnCounterDecrement2(object sender, EventArgs e) { IncrementCounter(-10); }
-    private void OnCounterDecrement1(object sender, EventArgs e) { IncrementCounter(-1); }
-    private void OnCounterIncrement1(object sender, EventArgs e) { IncrementCounter(1); }
-    private void OnCounterIncrement2(object sender, EventArgs e) { IncrementCounter(10); }
-    private void OnCounterIncrement3(object sender, EventArgs e) { IncrementCounter(100); }
-
-    private void IncrementCounter(int value)
-    {
-        counter.OnNext(counter.Value + value);
-    }
-
     private void OnSavePointsClicked(object sender, EventArgs e)
     {
         if (playerData != null)
@@ -71,6 +72,7 @@ public partial class EditPlayerPage : ContentPage
             playerData.Points.Add(counter.Value);
             counter.OnNext(0);
             DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
+            Vibration.Default.Vibrate(50);
         }
 
         Navigation.PopAsync();
