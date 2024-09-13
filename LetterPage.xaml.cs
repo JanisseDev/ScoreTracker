@@ -40,6 +40,7 @@ public partial class LetterPage : ContentPage
         }
         catch
         {
+            currentMode = ERandomLetterMode.Elimination;
             EliminationModeSwitch.IsToggled = true;
             LettersLayout.IsEnabled = true;
         }
