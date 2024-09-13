@@ -14,7 +14,8 @@
         </Style>
     </ContentPage.Resources>
 
-    <Grid>
+    <Grid
+        Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="auto" />
