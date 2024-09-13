@@ -6,10 +6,19 @@
             x:Class="ScoreTracker.RootPage"
             Title="RootPage"
             android:TabbedPage.ToolbarPlacement="Bottom">
-    <NavigationPage Title="Score" IconImageSource="{StaticResource ScoreTabIcon}">
+    <NavigationPage Title="Scores" IconImageSource="{StaticResource ScoreTabIcon}">
         <x:Arguments>
             <local:ScorePage />
         </x:Arguments>
     </NavigationPage>
-    <local:DicePage Title="Dice" IconImageSource="{StaticResource DiceTabIcon}" />
+    <NavigationPage Title="Dices" IconImageSource="{StaticResource DiceTabIcon}">
+        <x:Arguments>
+            <local:DicePage />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Letters" IconImageSource="{StaticResource LetterTabIcon}">
+        <x:Arguments>
+            <local:LetterPage />
+        </x:Arguments>
+    </NavigationPage>
 </TabbedPage>

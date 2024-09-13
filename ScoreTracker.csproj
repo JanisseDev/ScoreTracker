@@ -59,7 +59,9 @@
 	  <None Remove="Resources\Images\clipboard_list_alt.svg" />
 	  <None Remove="Resources\Images\clipboard_xmark.svg" />
 	  <None Remove="Resources\Images\dice_three.svg" />
+	  <None Remove="Resources\Images\font.svg" />
 	  <None Remove="Resources\Images\pen_line.svg" />
+	  <None Remove="Resources\Images\refresh_ccw_alt.svg" />
 	  <None Remove="Resources\Images\trash_alt.svg" />
 	  <None Remove="Resources\Images\users.svg" />
 	</ItemGroup>
@@ -88,6 +90,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="EditPlayerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="LetterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\Icons.xaml">

@@ -4,15 +4,6 @@ using LiteDB.Realtime.Subscriptions;
 
 namespace ScoreTracker
 {
-    public class PlayerData
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<int> Points { get; set; } = new List<int>();
-
-        public int TotalPoints { get { return Points.Sum(); } }
-    }
-
     class DatabaseHandler
     {
         private RealtimeLiteDatabase db = new RealtimeLiteDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Storage.db"));

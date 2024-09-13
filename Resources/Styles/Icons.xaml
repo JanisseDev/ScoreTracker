@@ -6,9 +6,11 @@
     <!-- Icons from https://www.svgrepo.com/collection/dazzle-line-icons -->
     <x:String x:Key="ScoreTabIcon">clipboard_list_alt</x:String>
     <x:String x:Key="DiceTabIcon">dice_three</x:String>
+    <x:String x:Key="LetterTabIcon">font</x:String>
     <x:String x:Key="EditPlayerCountIcon">users</x:String>
     <x:String x:Key="ResetScoreIcon">clipboard_xmark</x:String>
     <x:String x:Key="DeleteIcon">trash_alt</x:String>
     <x:String x:Key="EditNameIcon">pen_line</x:String>
+    <x:String x:Key="ResetIcon">refresh_ccw_alt</x:String>
     
 </ResourceDictionary>

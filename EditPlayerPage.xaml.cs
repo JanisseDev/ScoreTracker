@@ -11,7 +11,7 @@ public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
     public ICommand EditCounterCommand { get; private set; }
 
     private BehaviorSubject<int> counter = new BehaviorSubject<int>(0);
-    private PlayerData playerData;
+    private DbModels.PlayerData playerData;
     private CompositeDisposable subscriptions;
 
     public EditPlayerPage(int a_id)
@@ -19,7 +19,7 @@ public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
 		InitializeComponent();
         subscriptions?.Dispose();
         subscriptions = new CompositeDisposable();
-        subscriptions.Add(DatabaseHandler.Instance.RealtimeCollection<PlayerData>().Id(a_id).Subscribe(x => { SetPlayerData(x); }));
+        subscriptions.Add(DatabaseHandler.Instance.RealtimeCollection<DbModels.PlayerData>().Id(a_id).Subscribe(x => { SetPlayerData(x); }));
         subscriptions.Add(counter.Subscribe(x => { UpdateCounterUI(x); }));
 
         EditCounterCommand = new Command<string>(x =>
@@ -37,7 +37,7 @@ public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
         subscriptions?.Dispose();
     }
 
-    private void SetPlayerData(PlayerData a_playerData)
+    private void SetPlayerData(DbModels.PlayerData a_playerData)
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
@@ -71,7 +71,7 @@ public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
         {
             playerData.Points.Add(counter.Value);
             counter.OnNext(0);
-            DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
+            DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().Update(playerData);
             Vibration.Default.Vibrate(50);
         }
 
@@ -85,7 +85,7 @@ public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
             if (t.Result == "Yes")
             {
                 playerData.Points.RemoveAt(e.ItemIndex);
-                DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
+                DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().Update(playerData);
             }
         });
     }
@@ -100,7 +100,7 @@ public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
         if(result != null)
         {
             playerData.Name = result;
-            DatabaseHandler.Instance.GetCollection<PlayerData>().Update(playerData);
+            DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().Update(playerData);
         }
     }
 
@@ -110,7 +110,7 @@ public partial class EditPlayerPage : ContentPage, INotifyPropertyChanged
         {
             if (t.Result == "Yes")
             {
-                DatabaseHandler.Instance.GetCollection<PlayerData>().Delete(playerData.Id);
+                DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().Delete(playerData.Id);
             }
         });
         

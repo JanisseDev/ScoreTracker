@@ -4,7 +4,7 @@ namespace ScoreTracker
 {
     public partial class ScorePage : ContentPage
     {
-        IDisposable subscription;
+        private IDisposable subscription;
 
         public ScorePage()
         {
@@ -12,7 +12,7 @@ namespace ScoreTracker
 
             PlayerListView.IsVisible = false;
             subscription?.Dispose();
-            subscription = DatabaseHandler.Instance.RealtimeCollection<PlayerData>().Subscribe(_ => UpdatePlayersList());
+            subscription = DatabaseHandler.Instance.RealtimeCollection<DbModels.PlayerData>().Subscribe(_ => UpdatePlayersList());
         }
 
         ~ScorePage()
@@ -24,7 +24,7 @@ namespace ScoreTracker
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                var players = DatabaseHandler.Instance.GetCollection<PlayerData>().FindAll();
+                var players = DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().FindAll();
                 PlayerListView.ItemsSource = players;
                 PlayerListView.IsVisible = players.Count() > 0;
                 EmptyView.IsVisible = players.Count() == 0;
@@ -40,14 +40,14 @@ namespace ScoreTracker
             int desiredPlayerCount;
             if(int.TryParse(result, out desiredPlayerCount))
             {
-                int delta = DatabaseHandler.Instance.GetCollection<PlayerData>().Count() - desiredPlayerCount;
+                int delta = DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().Count() - desiredPlayerCount;
 
                 if(delta < 0)
                 {
                     for (int i = delta; i < 0; i++)
                     {
-                        var np = new PlayerData { Name = "Player" };
-                        DatabaseHandler.Instance.GetCollection<PlayerData>().Insert(np);
+                        var np = new DbModels.PlayerData { Name = "Player" };
+                        DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().Insert(np);
                     }
                 }
                 else if(delta > 0)
@@ -56,8 +56,8 @@ namespace ScoreTracker
                     {
                         for(int i = 0;  i < delta; i++)
                         {
-                            var lastPlayer = DatabaseHandler.Instance.GetCollection<PlayerData>().FindAll().Last();
-                            DatabaseHandler.Instance.GetCollection<PlayerData>().Delete(lastPlayer.Id);
+                            var lastPlayer = DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().FindAll().Last();
+                            DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().Delete(lastPlayer.Id);
                         }
                     }
                     catch { }
@@ -71,7 +71,7 @@ namespace ScoreTracker
             {
                 if(t.Result == "Yes")
                 {
-                    DatabaseHandler.Instance.GetCollection<PlayerData>().UpdateMany("{Points: []}", "Points != []");
+                    DatabaseHandler.Instance.GetCollection<DbModels.PlayerData>().UpdateMany("{Points: []}", "Points != []");
                 }
             });
         }

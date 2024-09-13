@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ScoreTracker.LetterPage"
+             Title="Random Letters">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="LetterLabel">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="WidthRequest" Value="20" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{StaticResource ResetIcon}" Text="Reset letters" Clicked="OnResetLettersClicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid
+        Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <VerticalStackLayout
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Spacing="10">
+            <Label
+                x:Name="LetterResultLabel"
+                Text="-"
+                FontSize="100"
+                VerticalTextAlignment="Center"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="Fill" 
+                HorizontalOptions="Fill"
+                Grid.Row="0"/>
+            <Button
+                Text="Pick a random letter"
+                Clicked="RandomLetterClicked"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Spacing="10"
+            Grid.Row="1">
+            <Label
+                Text="Elimination Mode"
+                VerticalTextAlignment="Center"/>
+            <Switch
+                x:Name="EliminationModeSwitch"
+                Toggled="EliminationModeSwitchToggled"/>
+        </HorizontalStackLayout>
+        
+        <FlexLayout
+            x:Name="LettersLayout"
+            Direction="Row"
+            Wrap="Wrap"
+            JustifyContent="Center"
+            VerticalOptions="Fill"
+            HorizontalOptions="Fill"
+            Grid.Row="2">
+            <Label Style="{StaticResource LetterLabel}" Text="A" x:Name="Label_A" />
+            <Label Style="{StaticResource LetterLabel}" Text="B" x:Name="Label_B" />
+            <Label Style="{StaticResource LetterLabel}" Text="C" x:Name="Label_C" />
+            <Label Style="{StaticResource LetterLabel}" Text="D" x:Name="Label_D" />
+            <Label Style="{StaticResource LetterLabel}" Text="E" x:Name="Label_E" />
+            <Label Style="{StaticResource LetterLabel}" Text="F" x:Name="Label_F" />
+            <Label Style="{StaticResource LetterLabel}" Text="G" x:Name="Label_G" />
+            <Label Style="{StaticResource LetterLabel}" Text="H" x:Name="Label_H" />
+            <Label Style="{StaticResource LetterLabel}" Text="I" x:Name="Label_I" />
+            <Label Style="{StaticResource LetterLabel}" Text="J" x:Name="Label_J" />
+            <Label Style="{StaticResource LetterLabel}" Text="K" x:Name="Label_K" />
+            <Label Style="{StaticResource LetterLabel}" Text="L" x:Name="Label_L" />
+            <Label Style="{StaticResource LetterLabel}" Text="M" x:Name="Label_M" />
+            <Label Style="{StaticResource LetterLabel}" Text="N" x:Name="Label_N" />
+            <Label Style="{StaticResource LetterLabel}" Text="O" x:Name="Label_O" />
+            <Label Style="{StaticResource LetterLabel}" Text="P" x:Name="Label_P" />
+            <Label Style="{StaticResource LetterLabel}" Text="Q" x:Name="Label_Q" />
+            <Label Style="{StaticResource LetterLabel}" Text="R" x:Name="Label_R" />
+            <Label Style="{StaticResource LetterLabel}" Text="S" x:Name="Label_S" />
+            <Label Style="{StaticResource LetterLabel}" Text="T" x:Name="Label_T" />
+            <Label Style="{StaticResource LetterLabel}" Text="U" x:Name="Label_U" />
+            <Label Style="{StaticResource LetterLabel}" Text="V" x:Name="Label_V" />
+            <Label Style="{StaticResource LetterLabel}" Text="W" x:Name="Label_W" />
+            <Label Style="{StaticResource LetterLabel}" Text="X" x:Name="Label_X" />
+            <Label Style="{StaticResource LetterLabel}" Text="Y" x:Name="Label_Y" />
+            <Label Style="{StaticResource LetterLabel}" Text="Z" x:Name="Label_Z" />
+        </FlexLayout>
+
+        
+    </Grid>
+</ContentPage>
