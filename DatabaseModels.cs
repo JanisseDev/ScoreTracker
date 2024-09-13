@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using Xamarin.Google.Crypto.Tink.Signature;
 
 namespace ScoreTracker.DbModels
 {
