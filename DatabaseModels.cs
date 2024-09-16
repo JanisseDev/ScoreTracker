@@ -13,6 +13,10 @@ namespace ScoreTracker.DbModels
             Value = value;
         }
 
+        // Root
+        public const string CURRENT_TAB_INDEX = "CurrentTabIndex";
+
+        // Letter tab
         public const string RANDOM_LETTER_MODE = "RandomLetterMode";
         public const string ELIMINATED_MODE_LETTER_POOL = "EliminatedModeLetterPool";
     }

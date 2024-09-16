@@ -5,7 +5,8 @@
             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
             x:Class="ScoreTracker.RootPage"
             Title="RootPage"
-            android:TabbedPage.ToolbarPlacement="Bottom">
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            CurrentPageChanged="TabbedPage_CurrentPageChanged">
     <NavigationPage Title="Scores" IconImageSource="{StaticResource ScoreTabIcon}">
         <x:Arguments>
             <local:ScorePage />
