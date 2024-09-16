@@ -17,8 +17,11 @@
 - **LiteDB**: A fast, lightweight, local NoSQL database to store scores directly on your device.
 
 ## Screenshots
-<!-- Add screenshots here (if available) -->
-<img src="screenshots/screenshot_1.jpg" alt="Alt text" height="200"/>
-<img src="screenshots/screenshot_2.jpg" alt="Alt text" height="200"/>
-<img src="screenshots/screenshot_3.jpg" alt="Alt text" height="200"/>
-<img src="screenshots/screenshot_4.jpg" alt="Alt text" height="200"/>
+<table>
+  <tr>
+    <td><img src="Screenshots/screenshot_1.jpg"/></td>
+    <td><img src="Screenshots/screenshot_2.jpg"/></td>
+    <td><img src="Screenshots/screenshot_3.jpg"/></td>
+    <td><img src="Screenshots/screenshot_4.jpg"/></td>
+  </tr>
+</table>
