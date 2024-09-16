@@ -1,11 +1,13 @@
+using System.Reactive.Disposables;
+
 namespace ScoreTracker;
 
 public partial class LetterPage : ContentPage
 {
-    private readonly List<char> letters = new List<char>() { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-    private List<char> lettersLeft = new List<char>();
+    private readonly string allowedLetterPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private string eliminatedMode_LetterPool = "";
 
-    private IDisposable subscription;
+    private CompositeDisposable subscriptions;
     private ERandomLetterMode currentMode = ERandomLetterMode.Normal;
 
     enum ERandomLetterMode
@@ -17,15 +19,16 @@ public partial class LetterPage : ContentPage
     public LetterPage()
 	{
 		InitializeComponent();
-        lettersLeft = letters.ToList();
 
-        subscription?.Dispose();
-        subscription = DatabaseHandler.Instance.RealtimeCollection<DbModels.Setting>().Id(DbModels.Setting.RANDOM_LETTER_MODE).Subscribe(x => UpdateRandomMode(x));
+        subscriptions?.Dispose();
+        subscriptions = new CompositeDisposable();
+        subscriptions.Add(DatabaseHandler.Instance.RealtimeCollection<DbModels.Setting>().Id(DbModels.Setting.RANDOM_LETTER_MODE).Subscribe(x => UpdateRandomMode(x)));
+        subscriptions.Add(DatabaseHandler.Instance.RealtimeCollection<DbModels.Setting>().Id(DbModels.Setting.ELIMINATED_MODE_LETTER_POOL).Subscribe(x => UpdateEleminatedModeLetterPool(x)));
     }
 
     ~LetterPage()
     {
-        subscription?.Dispose();
+        subscriptions?.Dispose();
     }
 
     private void UpdateRandomMode(DbModels.Setting setting)
@@ -46,9 +49,29 @@ public partial class LetterPage : ContentPage
         }
     }
 
+    private void UpdateEleminatedModeLetterPool(DbModels.Setting setting)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            eliminatedMode_LetterPool = (setting != null) 
+                                            ? (string)setting.Value ?? ""
+                                            : allowedLetterPool.ToString();
+
+            for (int i = 0; i < allowedLetterPool.Length; i++)
+            {
+                UpdateLetterUI(allowedLetterPool[i], false);
+            }
+
+            for (int i = 0; i < eliminatedMode_LetterPool.Length; i++)
+            {
+                UpdateLetterUI(eliminatedMode_LetterPool[i], true);
+            }
+        });
+    }
+
     private void RandomLetterClicked(object sender, EventArgs e)
     {
-        if(lettersLeft.Count == 0 && currentMode == ERandomLetterMode.Elimination)
+        if(eliminatedMode_LetterPool.Length == 0 && currentMode == ERandomLetterMode.Elimination)
         {
             DisplayActionSheet("No available letter left!\nReset available letters list?", "No", "Yes").ContinueWith(t =>
             {
@@ -63,29 +86,25 @@ public partial class LetterPage : ContentPage
             return;
         }
 
-        List<char> letterPool;
+        string letterPool;
         switch (currentMode)
         {
             case ERandomLetterMode.Elimination:
-                letterPool = lettersLeft;
+                letterPool = eliminatedMode_LetterPool;
                 break;
             default:
-                letterPool = letters;
+                letterPool = allowedLetterPool;
                 break;
         }
 
-        int randomIndex = Random.Shared.Next(letterPool.Count);
+        int randomIndex = Random.Shared.Next(letterPool.Length);
         char letter = letterPool[randomIndex];
         LetterResultLabel.Text = letter.ToString();
 
         if(currentMode == ERandomLetterMode.Elimination)
         {
-            lettersLeft.RemoveAt(randomIndex);
-            if (FindByName($"Label_{letter}") is Label label && label != null)
-            {
-                label.IsEnabled = false;
-                label.Scale = 0.5;
-            }
+            string newPool = eliminatedMode_LetterPool.Remove(randomIndex, 1);
+            DatabaseHandler.Instance.GetCollection<DbModels.Setting>().Upsert(new DbModels.Setting(DbModels.Setting.ELIMINATED_MODE_LETTER_POOL, newPool));
         }
 
         Vibration.Default.Vibrate(50);
@@ -109,13 +128,16 @@ public partial class LetterPage : ContentPage
     {
         LetterResultLabel.Text = "-";
 
-        lettersLeft = letters.ToList();
-        for (int i = 0; i < letters.Count; i++)
+        eliminatedMode_LetterPool = allowedLetterPool.ToString();
+        DatabaseHandler.Instance.GetCollection<DbModels.Setting>().Delete(DbModels.Setting.ELIMINATED_MODE_LETTER_POOL);
+    }
+
+    private void UpdateLetterUI(char letter, bool isEnabled)
+    {
+        if (FindByName($"Label_{letter}") is Label label && label != null)
         {
-            if(FindByName($"Label_{letters[i]}") is Label label && label != null) {
-                label.IsEnabled = true;
-                label.Scale = 1;
-            }
+            label.IsEnabled = isEnabled;
+            label.Scale = isEnabled ? 1 : 0.5;
         }
     }
 

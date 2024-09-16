@@ -14,6 +14,7 @@ namespace ScoreTracker.DbModels
         }
 
         public const string RANDOM_LETTER_MODE = "RandomLetterMode";
+        public const string ELIMINATED_MODE_LETTER_POOL = "EliminatedModeLetterPool";
     }
 
     public class PlayerData
