@@ -1,6 +1,6 @@
-# Score Tracker
+# Board Game Toolbox
 
-**Score Tracker** is a versatile, privacy-focused mobile app designed to help you keep track of scores and add randomization to your gaming sessions. Built with `.NET MAUI`, the app offers a clean, intuitive interface for users, and stores all data locally using LiteDB to protect your privacy.
+**Board Game Toolbox** is a versatile, privacy-focused mobile app designed to help you keep track of scores and add randomization to your gaming sessions. Built with `.NET MAUI`, the app offers a clean, intuitive interface for users, and stores all data locally using LiteDB to protect your privacy.
 
 ## Features
 - **Three Core Modes:**
